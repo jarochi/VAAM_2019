@@ -1,0 +1,370 @@
+\documentclass[final]{beamer}
+\usepackage{grffile}
+\mode<presentation>{\usetheme{CambridgeUSPOL}}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{array,booktabs,tabularx}
+\usepackage{epstopdf}
+\usepackage{colortbl, xcolor}
+\newcolumntype{Z}{>{\centering\arraybackslash}X}
+
+% rysunki
+\usepackage{tikz}
+\usepackage{ifthen}
+\usepackage{xxcolor}
+\usetikzlibrary{arrows}
+\usetikzlibrary[topaths]
+\usetikzlibrary{decorations.pathreplacing}
+%\usepackage{times}\usefonttheme{professionalfonts}  % times is obsolete
+\usefonttheme[onlymath]{serif}
+\boldmath
+\usepackage[orientation=portrait,size=a0,scale=1.4,debug]{beamerposter}                       % e.g. for DIN-A0 poster
+%\usepackage[orientation=portrait,size=a1,scale=1.4,grid,debug]{beamerposter}                  % e.g. for DIN-A1 poster, with optional grid and debug output
+%\usepackage[size=custom,width=200,height=120,scale=2,debug]{beamerposter}                     % e.g. for custom size poster
+%\usepackage[orientation=portrait,size=a0,scale=1.0,printer=rwth-glossy-uv.df]{beamerposter}   % e.g. for DIN-A0 poster with rwth-glossy-uv printer check
+% ...
+%
+
+\usecolortheme{seagull}
+\useinnertheme{rectangles}
+\setbeamercolor{item projected}{bg=darkred}
+% \setbeamertemplate{enumerate items}[default]
+\setbeamertemplate{caption}{\insertcaption} 
+\setbeamertemplate{navigation symbols}{}
+\setbeamercovered{transparent}
+\setbeamercolor{block title}{fg=darkred}
+\setbeamercolor{local structure}{fg=darkred}
+
+\setbeamercolor*{enumerate item}{fg=darkred}
+\setbeamercolor*{enumerate subitem}{fg=darkred}
+\setbeamercolor*{enumerate subsubitem}{fg=darkred}
+
+%\setbeamercolor*{itemize item}{fg=darkred}
+%\setbeamercolor*{itemize subitem}{fg=darkred}
+%\setbeamercolor*{itemize subsubitem}{fg=darkred}
+
+\newlength{\columnheight}
+\setlength{\columnheight}{94cm}
+\renewcommand{\thetable}{}
+\def\andname{,}
+\authornote{}
+
+\renewcommand{\APACrefatitle}[2]{}
+\renewcommand{\bibliographytypesize}{\footnotesize} 
+\renewcommand{\APACrefYearMonthDay}[3]{%
+{\BBOP}{#1}
+{\BBCP}
+}
+
+\begin{document}
+
+\date{}
+
+\author{\large \underline{Jaros\l{}aw Chilimoniuk}\inst{1}*, Pawe\l{} Mackiewicz\inst{1} and Micha\l{} Burdukiewicz\inst{2}\\
+\bigskip
+\normaltext{*jaroslaw.chilimoniuk@gmail.com}}
+
+\institute{\small{\textsuperscript{1}University of Wroc\l{}aw, Department of Genomics, Wroc\l{}aw, POLAND
+\textsuperscript{2}Warsaw University of Technology, Warsaw, POLAND}}
+
+\title{\huge CsgA, CsgB and CsgC - evolutionary interplay in curli biogenesis}
+
+\begin{frame}
+\begin{columns}
+\begin{column}{.50\textwidth}
+\begin{beamercolorbox}[center,wd=\textwidth]{postercolumn}
+\begin{minipage}[T]{.95\textwidth}
+\parbox[t][\columnheight]{\textwidth}
+{
+\begin{block}{Introduction}
+
+<<knitrIntro, echo = FALSE, message=FALSE,warning=FALSE>>=
+
+library(dplyr)
+library(ggplot2)
+library(reshape2)
+library(ggseqlogo)
+library(ggrepel)
+library(gridExtra)
+library(grid)
+library(AmyloGram)
+@
+
+
+CsgA, also known as a major curli component, is a secreted protein ubiquitous in biofilms of gram-negative bacteria. Thanks to its ability to create durable fibers, CsgA is a dominant proteinaceous scaffold of biofilms. In fact, CsgA belongs to amyloids, proteins that form fibers during a spontaneous aggregation. 
+
+The presence of pre-formed amyloid fibers can accelerate aggregation of other amyloids. This process is known as cross-seeding. It is extremely sequence specific and can be restricted by a difference in a single amino acid. CsgA can be in vivo cross-seeded by its nucleator protein, CsgB, but also other CsgA fibrils.
+\end{block}
+
+
+\begin{block}{Methods}
+\begin{columns}
+
+    \begin{column}{0.55\textwidth}
+        \includegraphics[width=0.75\columnwidth]{schemat_psi_blast.eps}
+    \end{column}
+    \begin{column}{0.43\textwidth}
+        We used CsgA from \textit{E. coli} K12 as a starting point of our search for CsgA homologs.
+        
+        \bigskip
+        
+        After five iterations of PSI-Blast, we found 5007 sequences producing significant alignments with E-value lower than the threshold.
+        
+        \bigskip
+        
+        We evaluated sequences using a simple heuristic approach to find the most probable candidates for the CsgA proteins.
+        
+        \bigskip
+        
+        Proteins were used to find appropriate genomes in the Nucleotide database.
+        
+        \bigskip
+        
+        Using genomic information, we reconstructed CsgBAC operons.
+        
+    \end{column}
+
+\end{columns}
+
+\end{block}
+
+
+\begin{block}{Results}
+
+
+<<echo = FALSE,message=FALSE,fig.align='center',fig.width=15,fig.height=10,warning=FALSE>>=
+
+
+# set path to aligned CsgA and CsgB
+
+# if(Sys.info()[["nodename"]] %in% c("amyloid", "lori")) {
+#   seq_path_CsgA <- "/home/michal/Dropbox/dropbox-amylogram/PSI-blast/CsgA_muscle.fas"
+#   seq_path_CsgB <- "/home/michal/Dropbox/dropbox-amylogram/PSI-blast/CsgB_muscle.fas"
+# }
+# if(Sys.info()[["nodename"]] %in% c("MSI-GE60-2PE")) {
+#   seq_path_CsgA <- "/home/jarek/Dropbox/amyloids/PSI-blast/CsgA_muscle.fas"
+#   seq_path_CsgB <- "/home/jarek/Dropbox/amyloids/PSI-blast/CsgB_muscle.fas"
+# }
+
+  seq_path_CsgA <- "data/CsgA-only-coli_mod.fas"
+  seq_path_CsgB <- "data/CsgB_muscle.fas"
+
+# CsgA coding regions
+CsgA_regions <- list(R1 = 43L:65, 
+                     R2 = 66L:87,
+                     R3 = 88L:110,
+                     R4 = 111L:132,
+                     R5 = 133L:151)
+
+# CsgB coding regions
+CsgB_regions <- list(R1 = 45L:66, 
+                     R2 = 67L:88,
+                     R3 = 89L:110,
+                     R4 = 111L:132,
+                     R5 = 133L:154)
+
+
+plot_logo_region <- function(seq_path, region){
+  # read all lines from alignment
+  all_lines <- readLines(seq_path)
+  # find protein ids
+  prot_id <- cumsum(grepl("^>", all_lines))
+  # split into separate proteins and their sequence
+  all_prots <- split(all_lines, prot_id)
+  # split sequence into separate aa
+  aln_dat <- lapply(all_prots, function(ith_prot) {
+    strsplit(paste0(ith_prot[-1], collapse = ""), "")[[1]]
+  }) %>% 
+    do.call(rbind, .)
+  # find positions of aa
+  real_positions <- cumsum(aln_dat[1, ] != "-")
+  # create a vector from AmyloGrm alphabet groups
+  aa_vec <- lapply(AmyloGram_model[["enc"]], toupper) %>% unlist
+  # create custom color scheme, as in AG
+  amylogram_color_scheme <- make_col_scheme(chars = unname(aa_vec), 
+                                            groups = factor(substr(names(aa_vec), 0, 1),
+                                                            labels = unlist(lapply(AmyloGram_model[["enc"]], 
+                                                                                   function(i) paste0(toupper(i), collapse = ", ")))), 
+                                            cols = factor(substr(names(aa_vec), 0, 1), 
+                                                          labels = c("chartreuse3", "dodgerblue2", "firebrick1", 
+                                                                     "darkorange", "darkseagreen4", "darkorchid3")) %>% 
+                                              as.character())
+  
+  
+  ggplot() + 
+    geom_logo(apply(aln_dat[, real_positions %in% region], 1, paste0, collapse = ""),
+              method = "probability",
+              col_scheme = amylogram_color_scheme) + 
+    scale_fill_discrete("AmyloGram group", drop = FALSE) + 
+    theme_logo() +
+    theme(legend.position = "none")
+}
+
+# create sequence logos for each region
+CsgA_logos <- lapply(CsgA_regions, function(i)
+  plot_logo_region(seq_path = seq_path_CsgA, region = i))
+
+# add legend to last region
+CsgA_logos[[5]] <- CsgA_logos[[5]] + theme(legend.position = "bottom")
+
+# create grid from plots
+grid.newpage()
+grid.draw(arrangeGrob(grobs = c(list(rectGrob(gp = gpar(fill = NA, col = NA))),
+  lapply(1L:5, function(i) textGrob(paste0("R", i), vjust = -4, gp = gpar(fontsize = 18))),
+  list(textGrob("CsgA", gp=gpar(fontsize = 38, fontface = "bold"))),
+  CsgA_logos), 
+  ncol = 2, as.table = FALSE, 
+  widths = c(0.02, 0.98),
+  heights = c(0.07, rep(0.17, 4), 0.25)))
+
+
+@
+
+
+\begin{columns}
+    \begin{column}{0.3\textwidth}
+        \includegraphics[width=0.8\columnwidth]{AG.eps}
+    \end{column}
+    \begin{column}{0.75\textwidth}
+    
+        \bigskip
+        
+        AmyloGram \citep{burdukiewicz_amyloidogenic_2017-1} was used to create reduced aa alphabet.
+        The software assigned amino acids into 6 groups, by using eleven combinations of physicochemical properties.
+        
+        \bigskip 
+        
+        I) lowest propensity to form $\beta$-sheets
+        
+        \bigskip
+        
+        II) the most hydrophilic, includes two strongly basic amino acids, highly flexible
+        
+        \bigskip
+        
+        III) strongly hydrophobic, highest propensity to form $\beta$-sheets
+        
+        \bigskip
+        
+        IV) aromatic properties, the most hydrophilic, the least flexible, highest propensity to form $\beta$-sheets
+        
+        \bigskip
+        
+        V) the least flexible
+        
+        \bigskip
+        
+        VI) strongly hydrophilic and highly flexible
+        
+    \end{column}
+\end{columns}
+
+% AmyloGram was used to create reduced aa alphabet.
+% The software assigned amino acids into 6 groups, by using eleven combinations of physicochemical properties.
+% Amino acids where divided in subgroups:
+% I) lowest propensity to form $\beta$-sheets
+% II) the most hydrophilic, includes two strongly basic amino acids, highly flexible
+% III) strongly hydrophobic, highest propensity to form $\beta$-sheets
+% IV) aromatic properties, the most hydrophilic, the least flexible, highest propensity to form $\beta$-sheets
+% V) the least flexible
+% VI) strongly hydrophilic and highly flexible
+
+\end{block}
+\vfill
+}
+\end{minipage}
+\end{beamercolorbox}
+\end{column}
+
+
+%new column ------------------------------------------------------    
+
+\begin{column}{.51\textwidth}
+\begin{beamercolorbox}[center,wd=\textwidth]{postercolumn}
+\begin{minipage}[T]{.95\textwidth}  
+\parbox[t][\columnheight]{\textwidth}
+{
+
+\begin{block}{Results}
+
+
+<<echo = FALSE,message=FALSE,fig.align='center',fig.width=15,fig.height=10,warning=FALSE>>=
+
+# create sequence logos for each region
+CsgB_logos <- lapply(CsgB_regions, function(i)
+  plot_logo_region(seq_path = seq_path_CsgB, region = i))
+
+# add legend to last region
+CsgB_logos[[5]] <- CsgB_logos[[5]] + theme(legend.position = "bottom")
+
+# create grid from plots
+grid.newpage()
+grid.draw(arrangeGrob(grobs = c(list(rectGrob(gp = gpar(fill = NA, col = NA))),
+  lapply(1L:5, function(i) textGrob(paste0("R", i), vjust = -4, gp = gpar(fontsize = 18))),
+  list(textGrob("CsgB", gp=gpar(fontsize = 38, fontface = "bold"))),
+  CsgB_logos), 
+  ncol = 2, as.table = FALSE, 
+  widths = c(0.02, 0.98),
+  heights = c(0.07, rep(0.17, 4), 0.25)))
+
+@
+
+Both CsgA and CsgB are characterized by a regional structure of five repeated motifs. We found out that the general motif (S-X5-Q-X-G-X2-N-X-A-X3-Q) \citep{evans_curli_2014-2} (the serin in absent in the case of CsgB) is faithfully preserved among different variants of CsgA and CsgB. The residual variability in motifs of both proteins does not affect the sequence of other protein.
+
+Aligned repeat motifs from CsgA and CsgB show that the variability of these sequences is insignificant. We can also see invariable places, which probably are responsible for protein amyloidogenic properties. 
+\end{block}
+\vfill
+
+\begin{block}{Stability of CsgA curli motif}
+
+<<echo = FALSE, message=FALSE,warning=FALSE,fig.width=15,fig.height=11>>=
+load("mutation_df.RData")
+
+group_by(mutation_df, pos_max_mutations, nonmutated, max_mutations) %>% 
+  summarise(count = length(pos_max_mutations)) %>%  
+  ungroup %>% 
+  mutate(pos_max_mutations = factor(pos_max_mutations, 
+                                    labels = c("S(1)", "Q(7)", "G(9)", "G(11)", "N(12)", "A(14)", "Q(18)")),
+         nonmutated = paste0(nonmutated, " nonmutated resiues in the motif"),
+         max_mutations = max_mutations - 1) %>% 
+  ggplot(aes(x = factor(pos_max_mutations), y = count, color = factor(max_mutations), label = count)) +
+  geom_point(size = 4) +
+  geom_text_repel(color = "black", force = 10) +
+  scale_color_discrete("Number of other amino acids\non a given position") + 
+  guides(colour = guide_legend(nrow = 1)) +
+  scale_x_discrete("Position in the motif with the largest number of mutations") +
+  scale_y_continuous("Number of strains") +
+  facet_wrap(~ nonmutated) +
+  theme_bw(base_size = 20) +
+  theme(legend.position = c(0.85, 0.2))
+@
+
+Among 2678 investigated strains, only 652 (24\%) had mutations in any repeat of the CsgA motif. The majority (470) of strains had only a single mutation, mostly in G (11). An insignificant fraction had more than 2 mutations. 157 strains (6\%) had two mutations, usually in S (1) and G (4) (116 strains). 41 strains had simultaneous mutations in G (4) and A (14).
+
+\end{block}
+\vfill 
+\begin{block}{Conclusions}
+
+The interplay of CsgA and CsgB suggests that if a mutation occurs in the region responsible for protein interaction, it should be compensated by mutations in other protein. We have not identified any simultaneous mutations between CsgA and CsgB. This may be due that single mutation in one region is not enough to change the protein function and to cause mutations in another protein. Probably, the compensation of single mutations by the regional structure of mentioned proteins is sufficient.
+
+\end{block}
+\vfill 
+
+ \begin{block}{Bibliography}
+  \tiny{
+  \bibliographystyle{apalike}
+  \bibliography{tymczasowa}
+  }
+  \end{block}
+  \vfill  
+}
+\end{minipage}
+\end{beamercolorbox}
+\end{column}
+\end{columns}  
+\end{frame}
+\end{document}

@@ -1,0 +1,113 @@
+% Copyright 2004 by Madhusudan Singh <madhusudan.singh@gmail.com>
+%
+% This file may be distributed and/or modified
+%
+% 1. under the LaTeX Project Public License and/or
+% 2. under the GNU Public License.
+%
+% See the file doc/licenses/LICENSE for more details.
+
+\ProvidesPackage{beamerthemeCambridgeUSPOL}
+
+
+\mode<presentation>
+
+\useinnertheme[shadow=true]{rounded}
+\useoutertheme{infolines}
+\usecolortheme{beaver}
+\usepackage{color}
+
+%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+% ------------------------------------------------------------------------ Definiujemy nasze kolory
+\definecolor{red1}{RGB}{254,240,217} % --------------- \definecolor{dowolna_nazwa}{RGB}{wartości_RGB_dla_koloru}
+\definecolor{red2}{RGB}{253,204,138}
+\definecolor{red3}{RGB}{252,141,89}
+\definecolor{red4}{RGB}{227,74,51}
+\definecolor{red5}{RGB}{179,0,0}
+\definecolor{super_kolor_turbo}{RGB}{157, 147, 201}
+\definecolor{darkred}{RGB}{179,1,1}
+\usecolortheme{seagull}
+\useinnertheme{rectangles}
+
+% --------------------------------------------------------------------- kolory w nagłówku
+\setbeamercolor{title in headline}{fg=black} % -------- tytił
+\setbeamercolor{author in headline}{fg=darkred} % -------- autor
+\setbeamercolor{institute in headline}{fg=red5} % --------- instytut
+%\setbeamercolor{block body}{fg=black}
+
+
+% ----------------------------------------------------- kolory naszych sekcji
+\setbeamercolor{block title}{fg=white ,bg=super_kolor_turbo}  % ---------------- kolor liter, kolor paska w klocku
+\setbeamercolor{block body}{fg=black ,bg=white} % -------------------- kolor liter, kolor tła w klocku
+\setbeamercolor{local structure}{fg=darkred}
+
+
+%---------------------------------------------------------------------------------------------------------------------
+
+\setbeamercolor{item projected}{bg=darkred}
+\setbeamertemplate{caption}{\insertcaption} 
+\setbeamertemplate{navigation symbols}{}
+\setbeamercovered{transparent}
+
+\setbeamercolor*{enumerate item}{fg=darkred} % ----------------- kolorki dla enumerate i itemize
+\setbeamercolor*{enumerate subitem}{fg=darkred}
+\setbeamercolor*{enumerate subsubitem}{fg=darkred}
+
+\setbeamercolor*{itemize item}{fg=darkred}
+\setbeamercolor*{itemize subitem}{fg=darkred}
+\setbeamercolor*{itemize subsubitem}{fg=darkred}
+
+%----------------------------------------------------------------------------------------------------------------------
+
+\setbeamertemplate{headline}{  
+  \leavevmode
+  \begin{beamercolorbox}[wd=\paperwidth]{headline}
+    \begin{columns}[T]
+      \begin{column}{.99\paperwidth}
+        \vskip10ex
+        \raggedleft
+        \usebeamercolor{title in headline}{\centering\color{fg}\textbf{\LARGE{\inserttitle}}\\[1ex]}
+        \usebeamercolor{author in headline}{\centering\color{fg}\large{\insertauthor}\\[1ex]}
+        \usebeamercolor{institute in headline}{\centering\color{fg}\large{\insertinstitute}\\[1ex]}     
+      \end{column}
+    \end{columns}
+    \vskip2ex
+  \end{beamercolorbox}
+
+  \begin{beamercolorbox}[wd=\paperwidth]{lower separation line head}
+    \rule{0pt}{3pt}
+  \end{beamercolorbox}
+}
+
+\setbeamertemplate{footline}{
+  \begin{beamercolorbox}[wd=\paperwidth]{upper separation line foot}
+    \rule{0pt}{3pt}
+  \end{beamercolorbox}
+  
+  \leavevmode
+  \vskip0pt%
+  \begin{beamercolorbox}[wd=\paperwidth]{lower separation line foot}
+    \rule{0pt}{3pt}
+  \end{beamercolorbox}
+}
+
+\setbeamertemplate{block begin}{
+  \vskip.5ex
+  \begin{beamercolorbox}[ht=3.95ex,dp=0.5ex,center,leftskip=-1em,colsep*=.75ex]{block title}%
+    \usebeamerfont*{block title}%
+    {\phantom{Gg}\insertblocktitle}% phantom because of baseline problem
+  \end{beamercolorbox}%
+  {\ifbeamercolorempty[bg]{block body}{}{\nointerlineskip\vskip-0.5pt}}%
+  \usebeamerfont{block body}%
+  \begin{beamercolorbox}[leftskip=1em,colsep*=.75ex,sep=0.5ex,vmode]{block body}%
+    \ifbeamercolorempty[bg]{block body}{\vskip-.25ex}{\vskip-.75ex}\vbox{}%
+  }
+  \setbeamertemplate{block end}{
+  \end{beamercolorbox}
+}
+
+\setbeamerfont{block title}{size={}}
+\setbeamercolor{titlelike}{parent=structure,bg=white}
+\mode
+<all>
