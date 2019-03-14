@@ -57,17 +57,18 @@
 
 \begin{frame}
 \begin{columns}
-\begin{column}{.50\textwidth}
+\begin{column}{.50\textwidth}                               % szerokość kolumny lewej
 \begin{beamercolorbox}[center,wd=\textwidth]{postercolumn}
 \begin{minipage}[T]{.95\textwidth}
 \parbox[t][\columnheight]{\textwidth}
 {
-% 
-% \begin{block}{}
-% <<knitrIntro, echo = FALSE, message=FALSE,warning=FALSE>>=
-% @
-% \end{block}
-% \vfill
+
+\begin{block}{Nazwa}
+
+AmyloGram
+
+\end{block}
+\vfill
 
 
 
@@ -276,7 +277,7 @@ grid.draw(arrangeGrob(grobs = c(list(rectGrob(gp = gpar(fill = NA, col = NA))),
 
 %new column ------------------------------------------------------    
 
-\begin{column}{.51\textwidth}
+\begin{column}{.51\textwidth}                                 % szerokość kolumny prawej
 \begin{beamercolorbox}[center,wd=\textwidth]{postercolumn}
 \begin{minipage}[T]{.95\textwidth}  
 \parbox[t][\columnheight]{\textwidth}
