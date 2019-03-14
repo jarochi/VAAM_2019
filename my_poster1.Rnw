@@ -63,12 +63,10 @@
 \parbox[t][\columnheight]{\textwidth}
 {
 
-\begin{block}{Nazwa}
-
-AmyloGram
-
-\end{block}
-\vfill
+% \begin{block}{Nazwa}
+% Tekst
+% \end{block}
+% \vfill
 
 
 
