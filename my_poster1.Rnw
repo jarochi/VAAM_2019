@@ -29,24 +29,6 @@
 % ...
 %
 
-\usecolortheme{seagull}
-\useinnertheme{rectangles}
-\setbeamercolor{item projected}{bg=darkred}
-% \setbeamertemplate{enumerate items}[default]
-\setbeamertemplate{caption}{\insertcaption} 
-\setbeamertemplate{navigation symbols}{}
-\setbeamercovered{transparent}
-\setbeamercolor{block title}{fg=darkred}
-\setbeamercolor{local structure}{fg=darkred}
-
-\setbeamercolor*{enumerate item}{fg=darkred}
-\setbeamercolor*{enumerate subitem}{fg=darkred}
-\setbeamercolor*{enumerate subsubitem}{fg=darkred}
-
-%\setbeamercolor*{itemize item}{fg=darkred}
-%\setbeamercolor*{itemize subitem}{fg=darkred}
-%\setbeamercolor*{itemize subsubitem}{fg=darkred}
-
 \newlength{\columnheight}
 \setlength{\columnheight}{94cm}
 \renewcommand{\thetable}{}
@@ -71,7 +53,7 @@
 \institute{\small{\textsuperscript{1}University of Wroc\l{}aw, Department of Genomics, Wroc\l{}aw, POLAND
 \textsuperscript{2}Warsaw University of Technology, Warsaw, POLAND}}
 
-\title{\huge CsgA, CsgB and CsgC - evolutionary interplay in curli biogenesis}
+\title{\huge Co-evolution of curli components CsgA and CsgB}
 
 \begin{frame}
 \begin{columns}
@@ -80,6 +62,15 @@
 \begin{minipage}[T]{.95\textwidth}
 \parbox[t][\columnheight]{\textwidth}
 {
+% 
+% \begin{block}{}
+% <<knitrIntro, echo = FALSE, message=FALSE,warning=FALSE>>=
+% @
+% \end{block}
+% \vfill
+
+
+
 \begin{block}{Introduction}
 
 <<knitrIntro, echo = FALSE, message=FALSE,warning=FALSE>>=
@@ -99,6 +90,7 @@ CsgA, also known as a major curli component, is a secreted protein ubiquitous in
 
 The presence of pre-formed amyloid fibers can accelerate aggregation of other amyloids. This process is known as cross-seeding. It is extremely sequence specific and can be restricted by a difference in a single amino acid. CsgA can be in vivo cross-seeded by its nucleator protein, CsgB, but also other CsgA fibrils.
 \end{block}
+\vfill
 
 
 \begin{block}{Methods}
@@ -131,6 +123,7 @@ The presence of pre-formed amyloid fibers can accelerate aggregation of other am
 \end{columns}
 
 \end{block}
+\vfill
 
 
 \begin{block}{Results}
@@ -224,44 +217,44 @@ grid.draw(arrangeGrob(grobs = c(list(rectGrob(gp = gpar(fill = NA, col = NA))),
 
 @
 
-
-\begin{columns}
-    \begin{column}{0.3\textwidth}
-        \includegraphics[width=0.8\columnwidth]{AG.eps}
-    \end{column}
-    \begin{column}{0.75\textwidth}
+% 
+% \begin{columns}
+%     \begin{column}{0.3\textwidth}
+%         \includegraphics[width=0.8\columnwidth]{AG.eps}
+%     \end{column}
+%     \begin{column}{0.75\textwidth}
     
         \bigskip
         
         AmyloGram \citep{burdukiewicz_amyloidogenic_2017-1} was used to create reduced aa alphabet.
-        The software assigned amino acids into 6 groups, by using eleven combinations of physicochemical properties.
+        The software assigned amino acids into 6 groups, by using eleven combinations of physicochemical properties:
         
         \bigskip 
         
-        I) lowest propensity to form $\beta$-sheets
+        I) Lowest propensity to form $\beta$-sheets (Glycine)
         
         \bigskip
         
-        II) the most hydrophilic, includes two strongly basic amino acids, highly flexible
+        II) The most hydrophilic, includes two strongly basic amino acids, highly flexible (Lysine, Proline, Arginine)
         
         \bigskip
         
-        III) strongly hydrophobic, highest propensity to form $\beta$-sheets
+        III) Strongly hydrophobic, highest propensity to form $\beta$-sheets (Isoleucyne, Leucine, Valine)
         
         \bigskip
         
-        IV) aromatic properties, the most hydrophilic, the least flexible, highest propensity to form $\beta$-sheets
+        IV) Aromatic properties, the most hydrophilic, the least flexible, highest propensity to form $\beta$-sheets (Phenylalanine, Tryptophan, Tyrosine)
         
         \bigskip
         
-        V) the least flexible
+        V) The least flexible (Alanine, Cysteine, Histidine, Methionine)
         
         \bigskip
         
-        VI) strongly hydrophilic and highly flexible
+        VI) Strongly hydrophilic and highly flexible (Aspartic Acid, Glutamic Acid, Asparagine, Glutamine, Serine, Threonine)
         
-    \end{column}
-\end{columns}
+%     \end{column}
+% \end{columns}
 
 % AmyloGram was used to create reduced aa alphabet.
 % The software assigned amino acids into 6 groups, by using eleven combinations of physicochemical properties.
@@ -340,7 +333,7 @@ group_by(mutation_df, pos_max_mutations, nonmutated, max_mutations) %>%
   scale_y_continuous("Number of strains") +
   facet_wrap(~ nonmutated) +
   theme_bw(base_size = 20) +
-  theme(legend.position = c(0.85, 0.2))
+  theme(legend.position="bottom")
 @
 
 Among 2678 investigated strains, only 652 (24\%) had mutations in any repeat of the CsgA motif. The majority (470) of strains had only a single mutation, mostly in G (11). An insignificant fraction had more than 2 mutations. 157 strains (6\%) had two mutations, usually in S (1) and G (4) (116 strains). 41 strains had simultaneous mutations in G (4) and A (14).

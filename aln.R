@@ -5,6 +5,10 @@ library(ggrepel)
 if(Sys.info()[["nodename"]] %in% c("amyloid", "lori")) {
   seq_path_CsgA <- "/home/michal/Dropbox/dropbox-amylogram/PSI-blast/CsgA_muscle.fas"
   seq_path_CsgB <- "/home/michal/Dropbox/dropbox-amylogram/PSI-blast/CsgB_muscle.fas"
+}else{
+  seq_path_CsgA <- "data/CsgA-only-coli_mod.fas"
+  seq_path_CsgB <- "data/CsgB_muscle.fas"
+  # seq_path_CsgA <- "data/CsgA-only-coli_bez_ostatnich.fas"
 }
 
 aas <- c(seqinr::a()[-1], "-")
@@ -30,11 +34,11 @@ aln_dat <- lapply(all_prots, function(ith_prot) {
 
 real_positions <- cumsum(aln_dat[1, ] != "-")
 
-only_regions <- lapply(CsgA_regions, function(ith_region)
-  aln_dat[, real_positions %in% ith_region])
+only_regions <- lapply(CsgA_regions, function(ith_region){
+  aln_dat[, real_positions %in% ith_region]})
 
 res_in_aln <- list(R1 = c(S = 1, Q = 7, G = 9, G = 11, N = 12, A = 14, Q = 18),
-                   R2 = c(S = 1, Q = 7, G = 9, G = 16, N = 17, A = 19, Q = 23),
+                   R2 = c(S = 1, Q = 7, G = 9, G = 11, N = 12, A = 14, Q = 18),
                    R3 = c(S = 1, Q = 7, G = 9, G = 11, N = 12, A = 14, Q = 18),
                    R4 = c(S = 1, Q = 7, G = 9, G = 11, N = 12, A = 14, Q = 18),
                    R5 = c(S = 1, Q = 7, G = 9, G = 11, N = 12, A = 14, Q = 18))
@@ -42,6 +46,7 @@ res_in_aln <- list(R1 = c(S = 1, Q = 7, G = 9, G = 11, N = 12, A = 14, Q = 18),
 CsgA_pattern <- lapply(1L:length(res_in_aln), function(ith_region) {
   only_regions[[ith_region]][, unname(res_in_aln[[ith_region]])]  
 })
+
 
 CsgA_motifs_per_species <- lapply(1L:nrow(CsgA_pattern[[1]]), function(ith_specimen) 
   sapply(1L:length(CsgA_pattern), function(ith_region) {
