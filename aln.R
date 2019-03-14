@@ -90,6 +90,6 @@ group_by(mutation_df, pos_max_mutations, nonmutated, max_mutations) %>%
   theme_bw() +
   theme(legend.position = c(0.8, 0.2))
 
-sapply(CsgA_motifs_per_species[mutants][mutation_df[["nonmutated"]] == 5], function(single_mutant) {
+sapply(CsgA_motifs_per_species[mutants][mutation_df[["nonmutated"]] == 6], function(single_mutant) {
   paste0(which(apply(single_mutant, 1, function(i) length(unique(i))) != 1), collapse = "")
 }) %>% table

@@ -326,7 +326,7 @@ group_by(mutation_df, pos_max_mutations, nonmutated, max_mutations) %>%
   ggplot(aes(x = factor(pos_max_mutations), y = count, color = factor(max_mutations), label = count)) +
   geom_point(size = 4) +
   geom_text_repel(color = "black", force = 10) +
-  scale_color_discrete("Number of other amino acids\non a given position") + 
+  scale_color_discrete("Number of other amino acids on a given position") + 
   guides(colour = guide_legend(nrow = 1)) +
   scale_x_discrete("Position in the motif with the largest number of mutations") +
   scale_y_continuous("Number of strains") +
@@ -335,7 +335,7 @@ group_by(mutation_df, pos_max_mutations, nonmutated, max_mutations) %>%
   theme(legend.position="bottom")
 @
 
-Among 2678 investigated strains, only 652 (24\%) had mutations in any repeat of the CsgA motif. The majority (470) of strains had only a single mutation, mostly in G (11). An insignificant fraction had more than 2 mutations. 157 strains (6\%) had two mutations, usually in S (1) and G (4) (116 strains). 41 strains had simultaneous mutations in G (4) and A (14).
+Among 1881 investigated strains, only 62 (3.2\%) had mutations in any repeat of the CsgA motif. The majority (59) of strains had only a single mutation, mostly in S (1). An insignificant fraction had more than 2 mutations. 2 strains (0.1\%) had two mutations, usually in S (1) and G (11) (116 strains). 41 strains had simultaneous mutations in G (4) and A (14).
 
 \end{block}
 \vfill 
