@@ -54,6 +54,8 @@ CsgA_motifs_per_species <- lapply(1L:nrow(CsgA_pattern[[1]]), function(ith_speci
   })
 ) 
 
+CsgA_motifs_per_species <- CsgA_motifs_per_species[-c(1, 1877, 1878, 1880, 1881)]
+
 mutants <- sapply(CsgA_motifs_per_species, function(ith_specimen)
   apply(ith_specimen, 1, function(i) length(unique(i))) %>% 
     sum
@@ -82,13 +84,13 @@ group_by(mutation_df, pos_max_mutations, nonmutated, max_mutations) %>%
   ggplot(aes(x = factor(pos_max_mutations), y = count, color = factor(max_mutations), label = count)) +
   geom_point(size = 4) +
   geom_text_repel(color = "black", force = 10) +
-  scale_color_discrete("Number of other amino acids\non the given position") + 
+  scale_color_discrete("Number of other amino acids on the given position") + 
   guides(colour = guide_legend(nrow = 1)) +
   scale_x_discrete("Position in the motif with the largest number of mutations") +
   scale_y_continuous("Number of strains") +
   facet_wrap(~ nonmutated) +
   theme_bw() +
-  theme(legend.position = c(0.8, 0.2))
+  theme(legend.position = "bottom")
 
 sapply(CsgA_motifs_per_species[mutants][mutation_df[["nonmutated"]] == 6], function(single_mutant) {
   paste0(which(apply(single_mutant, 1, function(i) length(unique(i))) != 1), collapse = "")

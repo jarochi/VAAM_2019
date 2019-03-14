@@ -30,7 +30,7 @@
 %
 
 \newlength{\columnheight}
-\setlength{\columnheight}{94cm}
+\setlength{\columnheight}{94cm}                 % Wysokość sekcji na bloki (Więcej miejsca na tytuł i autorów)
 \renewcommand{\thetable}{}
 \def\andname{,}
 \authornote{}
@@ -67,8 +67,6 @@
 % Tekst
 % \end{block}
 % \vfill
-
-
 
 \begin{block}{Introduction}
 
@@ -284,7 +282,7 @@ grid.draw(arrangeGrob(grobs = c(list(rectGrob(gp = gpar(fill = NA, col = NA))),
 \begin{block}{Results}
 
 
-<<echo = FALSE,message=FALSE,fig.align='center',fig.width=15,fig.height=10,warning=FALSE>>=
+<<echo = FALSE,message=FALSE,fig.align='center',fig.width=15,fig.height=12,warning=FALSE>>=
 
 # create sequence logos for each region
 CsgB_logos <- lapply(CsgB_regions, function(i)
@@ -335,7 +333,7 @@ group_by(mutation_df, pos_max_mutations, nonmutated, max_mutations) %>%
   theme(legend.position="bottom")
 @
 
-Among 1881 investigated strains, only 62 (3.2\%) had mutations in any repeat of the CsgA motif. The majority (59) of strains had only a single mutation, mostly in S (1). An insignificant fraction had more than 2 mutations. 2 strains (0.1\%) had two mutations, usually in S (1) and G (11) (116 strains). 41 strains had simultaneous mutations in G (4) and A (14).
+Among 1877 investigated strains, only 60 (3.2\%) had mutations in any repeat of the CsgA motif. The majority (59) of strains had only a single mutation, mostly in S (1). An insignificant fraction had more than 2 mutations. 1 strain (0.05\%) had two mutations S (1). 
 
 \end{block}
 \vfill 
