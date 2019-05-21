@@ -1,6 +1,8 @@
-# VAAM 2019 conference, Mainz
+# VAAM_2019
 
 Poster 
+
+Co-evolution of curli components CsgA and CsgB
 
 Annual Conference 2019 of the Association for General and Applied Microbiology
 
